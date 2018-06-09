@@ -18,7 +18,6 @@ Advantages of Serialization
 It is used to “mark” java classes so that objects of these classes may get certain capability.*/
 
 
-
 import java.io.*;
 
 public class Main {
@@ -27,12 +26,15 @@ public class Main {
     }
 
     public static void write() {
+        //Create new object of the class which implements Serializable
         Student student = new Student();
         student.name = "David";
         student.age = 23;
         student.course = "Computer Science";
         student.gpa = 4.7;
 
+        /*Classes ObjectInputStream and ObjectOutputStream are high-level streams that contain the
+        methods for serializing and deserializing an object.*/
         try {
 
             //When serializing an object to a file, the standard convention in Java is to give the file a .ser extension.
@@ -49,6 +51,7 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
+            //After write is done, read from the file
             read();
         }
     }
@@ -60,6 +63,7 @@ public class Main {
             FileInputStream fileIn = new FileInputStream("/tmp/student.ser");
 
             ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+            //read from file
             student = (Student) objectIn.readObject();
             objectIn.close();
 
@@ -71,6 +75,7 @@ public class Main {
             return;
         }
 
+        //Print out result
         System.out.println(student);
     }
 }
